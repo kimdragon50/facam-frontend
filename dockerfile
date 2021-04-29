@@ -12,7 +12,7 @@ RUN npm install --silent
 COPY . /usr/src/app
 RUN npm run build
 
-FROM nginx:1.19.8
+FROM nginx:latest
 # nginx의 기본 설정을 삭제하고 앱에서 설정한 파일을 복사
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
