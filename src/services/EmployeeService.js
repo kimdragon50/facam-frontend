@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const EMPLOYEE_API_BASE_URL = "https://emp.kimdragon50.ml/api/v1/employees";
+const EMPLOYEE_API_BASE_URL = "https://emp.kimdragon50.ml";
 class EmployeeService {
   getEmployees() {
     return axios.get(EMPLOYEE_API_BASE_URL);
