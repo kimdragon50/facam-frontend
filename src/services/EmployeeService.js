@@ -19,6 +19,7 @@ class EmployeeService {
     return axios.put(EMPLOYEE_API_BASE_URL, employee);
   }
   deleteEmployee(employee) {
+      alert('delete!!')
     return axios.post(EMPLOYEE_API_BASE_URL + "/delete", employee);
   }
   deleteById(id) {
