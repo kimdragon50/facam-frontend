@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import EmployeeService from "../services/EmployeeService";
 
 export default class EmployeeFormComponent extends Component {
+
   constructor(props) {
     super(props);
 
@@ -25,7 +26,9 @@ export default class EmployeeFormComponent extends Component {
       return;
     } else {
       EmployeeService.getEmployeeById(this.state.id).then((res) => {
+
         let employee = res.data;
+
         console.log(JSON.stringify(employee));
         this.setState({
           firstName: employee.firstName,
@@ -49,6 +52,10 @@ export default class EmployeeFormComponent extends Component {
     console.log("Employee:" + JSON.stringify(employee));
     if (this.state.id === undefined) {
       EmployeeService.addEmployee(employee).then((res) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+        res.header('Access-Control-Allow-Headers',
+        'Content-Type, Authorization, Content-Length, X-Requested-With');
         this.props.history.push("/employees");
       });
     } else {
