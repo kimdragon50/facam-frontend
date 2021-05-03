@@ -2,10 +2,6 @@ import axios from "axios";
 
 const EMPLOYEE_API_BASE_URL = "/api/v1/employees";
 
-app.get('/api/hello', (req, res) => {
-    res.send("안녕하세요 !")
-})
-
 class EmployeeService {
   getEmployees() {
     return axios.get(EMPLOYEE_API_BASE_URL);
