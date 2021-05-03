@@ -6,7 +6,7 @@ class EmployeeService {
     return axios.get(EMPLOYEE_API_BASE_URL);
   }
   addEmployee(employee) {
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
     return axios.post(EMPLOYEE_API_BASE_URL, employee);
   }
   getEmployeeById(id) {
