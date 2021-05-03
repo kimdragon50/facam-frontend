@@ -18,6 +18,7 @@ export default class EmployeeFormComponent extends Component {
     this.saveEmployee = this.saveEmployee.bind(this);
     this.cancelSave = this.cancelSave.bind(this);
   }
+
   // get employee by id to update
   componentDidMount() {
     if (this.state.id === undefined) {
@@ -34,6 +35,8 @@ export default class EmployeeFormComponent extends Component {
       });
     }
   }
+
+
   // save or update employee
   saveEmployee = (e) => {
     e.preventDefault();
@@ -43,7 +46,7 @@ export default class EmployeeFormComponent extends Component {
       lastName: this.state.lastName,
       emailAddress: this.state.emailAddress,
     };
-    console.log("Employe:" + JSON.stringify(employee));
+    console.log("Employee:" + JSON.stringify(employee));
     if (this.state.id === undefined) {
       EmployeeService.addEmployee(employee).then((res) => {
         this.props.history.push("/employees");
