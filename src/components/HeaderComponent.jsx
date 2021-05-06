@@ -13,7 +13,7 @@ export default class HeaderComponent extends Component {
           <nav className="navbar navbar-expand-md navbar-dark bg-dark">
             <div>
               <a href="http://web.kimdragon50.ml" className="navbar-brand">
-                EMT
+                EMT - Jenkins Test
               </a>
             </div>
           </nav>
