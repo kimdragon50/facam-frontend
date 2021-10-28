@@ -27,9 +27,19 @@
 name: Dockerizing to Amazon ECR
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'
+
+#on:
+#  push:
+#    branches:
+#      - main
 
 env:
   AWS_REGION: ap-northeast-2                   # set this to your preferred AWS region, e.g. us-west-1
