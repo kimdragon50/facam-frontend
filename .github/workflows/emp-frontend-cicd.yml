@@ -47,7 +47,7 @@ env:
 
 jobs:
   ecr-build-push-and-deploy:
-    name: Deploy
+    name: ecr-build-push-and-deploy
     runs-on: ubuntu-latest
     environment: production
 
