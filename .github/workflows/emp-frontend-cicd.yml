@@ -45,13 +45,6 @@ env:
   AWS_REGION: ap-northeast-2                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: frontend-web # set this to your Amazon ECR repository name
 
-#  ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
-#  ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
-#  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-#                                               # file, e.g. .aws/task-definition.json
-#  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
-#                                               # containerDefinitions section of your task definition
-
 jobs:
   deploy:
     name: Deploy
@@ -83,19 +76,41 @@ jobs:
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
 
+    - name: Get verion
+      id: image
+      run: |
+        VERSION=$(echo ${{ github.sha }} | cut -c1-8)
+        echo VERSION=$VERSION
+        echo "::set-output name=version::$VERSION"
 
-#    - name: Fill in the new image ID in the Amazon ECS task definition
-#      id: task-def
-#      uses: aws-actions/amazon-ecs-render-task-definition@v1
-#      with:
-#        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-#        container-name: ${{ env.CONTAINER_NAME }}
-#        image: ${{ steps.build-image.outputs.image }}
-#
-#    - name: Deploy Amazon ECS task definition
-#      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-#      with:
-#        task-definition: ${{ steps.task-def.outputs.task-definition }}
-#        service: ${{ env.ECS_SERVICE }}
-#        cluster: ${{ env.ECS_CLUSTER }}
-#        wait-for-service-stability: true
+    # kustomize 명령을 가져온다.
+    - name: Setup Kustomize
+      uses: imranismail/setup-kustomize@v1
+
+    - name: Checkout kustomize repository
+      uses: actions/checkout@v2
+      with:
+        # kubernetes 설정정보 저장소
+        repository: kimdragon50/emp-gitops
+        ref: frontend-web
+        # 다른 저장소에 push 하려면 Personal Access Token이 필요.
+        token: ${{ secrets.ACTION_TOKEN }}
+        path: emp-gitops
+    # 새 이미지 버전으로 파일 수정
+    - name: Update Kubernetes resources
+      run: |
+        pwd
+        cd emp-gitops/overlays/prd/
+        echo \${{ steps.login-ecr.outputs.registry }}/\${{ env.ECR_REPOSITORY }}
+        echo \${{ steps.login-ecr.outputs.registry }}/\${{ env.ECR_REPOSITORY }}:\${{ github.sha }}
+        kustomize edit set image \${{ steps.login-ecr.outputs.registry }}/\${{ env.ECR_REPOSITORY }}=\${{ steps.login-ecr.outputs.registry }}/\${{ env.ECR_REPOSITORY }}:\${{ github.sha }}
+        cat kustomization.yaml
+
+    # 수정된 파일 commit & push
+    - name: Commit minifest files
+      run: |
+        cd emp-gitops
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "github-actions"
+        git commit -am "Update image tag"
+        git push -u origin frontend-web
