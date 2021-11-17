@@ -24,7 +24,7 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
-name: Dockerizing to Amazon ECR
+name: frontend web - CI CD
 
 on:
   workflow_dispatch:
