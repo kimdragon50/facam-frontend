@@ -46,7 +46,7 @@ env:
   ECR_REPOSITORY: frontend-web # set this to your Amazon ECR repository name
 
 jobs:
-  deploy:
+  ecr-build-push-and-deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
