@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const EMPLOYEE_API_BASE_URL = "http://ecstest.kimdragon50.ml:8080/api/v1/employees";
+const EMPLOYEE_API_BASE_URL = "https://api.fastcampus-dragon.net/api/v1/employees";
 
 class EmployeeService {
 
