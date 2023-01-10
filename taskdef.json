@@ -1,10 +1,10 @@
 {
   "ipcMode": null,
-  "executionRoleArn": null,
+  "executionRoleArn": "arn:aws:iam::466324222409:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "dnsSearchDomains": null,
-      "environmentFiles": null,
+      "dnsSearchDomains": [],
+      "environmentFiles": [],
       "logConfiguration": null,
       "entryPoint": [],
       "portMappings": [
@@ -19,14 +19,14 @@
       "cpu": 0,
       "environment": [],
       "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": null,
+      "ulimits": [],
+      "dnsServers": [],
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": null,
-      "dockerSecurityOptions": null,
+      "secrets": [],
+      "dockerSecurityOptions": [],
       "memory": null,
-      "memoryReservation": 128,
+      "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
       "image": "466324222409.dkr.ecr.ap-northeast-2.amazonaws.com/facam-frontend",
@@ -37,27 +37,26 @@
       "interactive": null,
       "healthCheck": null,
       "essential": true,
-      "links": null,
+      "links": [],
       "hostname": null,
-      "extraHosts": null,
+      "extraHosts": [],
       "pseudoTerminal": null,
       "user": null,
       "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "systemControls": null,
+      "dockerLabels": {},
+      "systemControls": [],
       "privileged": null,
       "name": "frontend"
     }
   ],
   "placementConstraints": [],
-  "memory": null,
+  "memory": "1024",
   "taskRoleArn": null,
   "compatibilities": [
-    "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:466324222409:task-definition/frontend:5",
-  "family": "frontend",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:466324222409:task-definition/my-ecs-frontend-task-definition:1",
+  "family": "my-ecs-frontend-task-definition",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -69,7 +68,19 @@
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
     }
   ],
   "pidMode": null,
@@ -77,9 +88,12 @@
     "EC2"
   ],
   "networkMode": "bridge",
-  "runtimePlatform": null,
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": "X86_64"
+  },
   "cpu": null,
-  "revision": 5,
+  "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
